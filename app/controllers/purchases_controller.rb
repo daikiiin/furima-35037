@@ -1,15 +1,17 @@
 class PurchasesController < ApplicationController
   def index
-    @purchase = Purchase.find(params[:id])
+    @purchase = PurchaseOrder.new
   end
 
   def create
-    @purchase = Purchase.find(params[:id])
-    @purchase.create(purchase_params)
+    @purchase = PurchaseOrder.new(purchase_params)
+    @purchase.save
   end
 
-#  private
-#   def purchase_params
-#     params.require(:purchase).permit(:)
-#   end
-# end
+  private
+
+  def purchase_params
+    params.require(:purchases_order).permit(:user_id, :item_id, :post_code, :shipping_fee_destination_id, :city, :address, :building_name, :phone_number)
+  end
+end
+
