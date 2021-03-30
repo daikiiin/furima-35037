@@ -32,6 +32,9 @@ class ItemsController < ApplicationController
      render :edit
    end
  end
+ 
+ def destroy
+ end
 
  private 
 
