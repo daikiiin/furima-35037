@@ -7,6 +7,7 @@ class PurchaseOrder
      validates :city
      validates :address
      validates :phone_number
+     validates :token
    end
      validates :shipping_fee_destination_id, numericality: { other_than: 1 , message:'を選択して下さい'}
      validates :post_code, format: { with: /\A\d{3}[-]\d{4}\z/, message: "を正しく入力してください"}
