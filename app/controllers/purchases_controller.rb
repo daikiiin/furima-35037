@@ -8,8 +8,15 @@ class PurchasesController < ApplicationController
   end
 
   def create
+    @item = Item.find(params[:item_id])
     @purchase = PurchaseOrder.new(purchase_params)
     if @purchase.valid?
+      Payjp.api_key = "sk_test_18e87662b33a1bf20ebe7bcf"  # 自身のPAY.JPテスト秘密鍵を記述しましょう
+      Payjp::Charge.create(
+        amount: @item.cost ,  # 商品の値段
+        card: purchase_params[:token],    # カードトークン
+        currency: 'jpy'                 # 通貨の種類（日本円）
+      )
        @purchase.save
        redirect_to root_path
     else
@@ -21,7 +28,7 @@ class PurchasesController < ApplicationController
   private
 
   def purchase_params
-    params.require(:purchase_order).permit(:post_code, :shipping_fee_destination_id, :city, :address, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id])
+    params.require(:purchase_order).permit(:post_code, :shipping_fee_destination_id, :city, :address, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 
   def move_to_index 
