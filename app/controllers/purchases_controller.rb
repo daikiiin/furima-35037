@@ -1,21 +1,19 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!, only: [:index, :create]
+  before_action :set_item, only: [:index, :create]
   before_action :move_to_index, only: [:index, :create]
 
   def index
     @purchase = PurchaseOrder.new
-    @item = Item.find(params[:item_id])
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @purchase = PurchaseOrder.new(purchase_params)
     if @purchase.valid?
        pay_item
        @purchase.save
        redirect_to root_path
     else
-      @item = Item.find(params[:item_id])
       render :index
     end
   end
@@ -38,7 +36,8 @@ class PurchasesController < ApplicationController
       currency: 'jpy'                 # 通貨の種類（日本円）
     )
   end
-
-  
+  def set_item
+    @item = Item.find(params[:item_id])
+  end 
 end
 
