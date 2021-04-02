@@ -5,6 +5,7 @@ RSpec.describe PurchaseOrder, type: :model do
     @user = FactoryBot.create(:user)
     @item = FactoryBot.create(:item)
     @purchase_order = FactoryBot.build(:purchase_order, user_id: @user.id, item_id: @item.id)
+    sleep(1)
   end
   describe '購入情報の保存' do
     context "商品購入ができる時" do
