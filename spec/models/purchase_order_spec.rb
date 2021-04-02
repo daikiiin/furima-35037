@@ -55,10 +55,25 @@ RSpec.describe PurchaseOrder, type: :model do
         @purchase_order.valid?
         expect(@purchase_order.errors.full_messages).to include("Phone number に数字を使用してください")
       end
+      it '電話番号が12桁以上では登録できない' do
+        @purchase_order.phone_number = "080000000000"
+        @purchase_order.valid?
+        expect(@purchase_order.errors.full_messages).to include("Phone number に数字を使用してください")
+      end
       it "tokenが空では登録できないこと" do
         @purchase_order.token = nil
         @purchase_order.valid?
         expect(@purchase_order.errors.full_messages).to include("Token can't be blank")
+      end
+      it "user_idが空では登録できないこと" do
+        @purchase_order.user_id = ""
+        @purchase_order.valid?
+        expect(@purchase_order.errors.full_messages).to include("User can't be blank")
+      end
+      it "item_idが空では登録できないこと" do
+        @purchase_order.item_id = ""
+        @purchase_order.valid?
+        expect(@purchase_order.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
