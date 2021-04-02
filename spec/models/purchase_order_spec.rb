@@ -2,14 +2,20 @@ require 'rails_helper'
 
 RSpec.describe PurchaseOrder, type: :model do
   before do
-    @purchase_order = FactoryBot.build(:purchase_order)
+    @user = User.new
+    @item = Item.new
+    @purchase_order = FactoryBot.build(:purchase_order, user_id: @user.id, item_id: @item.id)
   end
   describe '購入情報の保存' do
     context "商品購入ができる時" do
       it '全ての項目を埋めれば登録できる' do
+        @purchase_order.user_id = "1"
+        @purchase_order.item_id = "1"
         expect(@purchase_order).to be_valid
       end
       it '建物名の欄が空白でも購入できる' do
+        @purchase_order.user_id = "1"
+        @purchase_order.item_id = "1"
         @purchase_order.building_name = ""
         expect(@purchase_order).to be_valid
       end
