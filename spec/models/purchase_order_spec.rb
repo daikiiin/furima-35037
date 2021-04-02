@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe PurchaseOrder, type: :model do
   before do
-    @user = FactoryBot.build(:user)
-    @item = FactoryBot.build(:item)
+    @user = FactoryBot.create(:user)
+    @item = FactoryBot.create(:item)
     @purchase_order = FactoryBot.build(:purchase_order, user_id: @user.id, item_id: @item.id)
   end
   describe '購入情報の保存' do
