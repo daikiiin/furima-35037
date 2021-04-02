@@ -31,7 +31,7 @@ class PurchasesController < ApplicationController
     redirect_to root_path if current_user.id == @item.user_id
   end
   def pay_item
-    Payjp.api_key = "sk_test_18e87662b33a1bf20ebe7bcf"  # 自身のPAY.JPテスト秘密鍵を記述しましょう
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  # 自身のPAY.JPテスト秘密鍵を記述しましょう
     Payjp::Charge.create(
       amount: @item.cost ,  # 商品の値段
       card: purchase_params[:token],    # カードトークン
