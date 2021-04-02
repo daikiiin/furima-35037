@@ -13,7 +13,7 @@ class PurchaseOrder
    end
      validates :shipping_fee_destination_id, numericality: { other_than: 1 , message:'を選択して下さい'}
      validates :post_code, format: { with: /\A\d{3}[-]\d{4}\z/, message: "を正しく入力してください"}
-     validates :phone_number, format: { with: /\A\d{11}\z/, message: "に数字を使用してください"}
+     validates :phone_number, format: { with: /\A\d{10,11}\z/, message: "に数字を使用してください"}
    def save
      purchase = Purchase.create(user_id: user_id, item_id: item_id)
      Order.create(post_code: post_code, shipping_fee_destination_id: shipping_fee_destination_id, city: city, address: address, building_name: building_name, phone_number: phone_number, purchase_id: purchase.id)
